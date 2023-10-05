@@ -1,4 +1,5 @@
 export interface Ressource {
     name: string
-    price: number
+    id_user: string;
+    quantity: number;
 }

@@ -1,7 +1,7 @@
 import { Express } from 'express'
 //import { requireRessources } from './ressources.middleware'
 import { getAllResources } from './ressources.services'
-import { requireLogin } from '../auth.middleware';
+import { requireLogin } from '../auth/auth.middleware';
 
 export function inventoryRoutes(app: Express) {
     

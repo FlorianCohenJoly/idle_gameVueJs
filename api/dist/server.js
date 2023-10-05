@@ -9,7 +9,7 @@ const cors_1 = __importDefault(require("cors"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const auth_controller_1 = require("./modules/auth/auth.controller");
 const auth_middleware_1 = require("./modules/auth/auth.middleware");
-const ressources_controller_1 = require("./modules/auth/ressources/ressources.controller");
+const ressources_controller_1 = require("./modules/ressources/ressources.controller");
 const marketplace_controller_1 = require("./modules/marketplace/marketplace.controller");
 function initWebServer() {
     // Creation du serveur http

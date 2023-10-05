@@ -17,6 +17,7 @@ async function register(body) {
         username: body.username,
         password: hashedPassword,
         token: token,
+        pessinos: 10,
         createdAt: new Date()
     });
     return { success: true, token };
@@ -33,7 +34,7 @@ async function login(body) {
     }
     const token = crypto_1.default.randomBytes(32).toString('hex');
     await User_1.Users.updateOne({ _id: user._id }, { $set: { token } });
-    return { success: true, token };
+    return { success: true, token, user_id: user._id };
 }
 exports.login = login;
 function findByToken(token) {

@@ -15,3 +15,4 @@ export interface SimpleUser {
     username: string
     createdAt: Date
 }
+

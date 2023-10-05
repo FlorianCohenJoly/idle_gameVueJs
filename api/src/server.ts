@@ -3,6 +3,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import { registerAuthRoutes } from './modules/auth/auth.controller'
 import { isLogin } from './modules/auth/auth.middleware'
+import {marketplaceRoutes} from "@/modules/marketplace/marketplace.controller";
 
 export function initWebServer() {
     // Creation du serveur http
@@ -23,7 +24,8 @@ export function initWebServer() {
     app.use(isLogin)
 
     // On enregistre nos controllers
-    registerAuthRoutes(app)
+    registerAuthRoutes(app);
+    marketplaceRoutes(app);
     
     // On ecoute sur le port configuré avec le .env
     app.listen(process.env.NODE_PORT, () => {

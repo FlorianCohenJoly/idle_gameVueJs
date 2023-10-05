@@ -10,6 +10,7 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const auth_controller_1 = require("./modules/auth/auth.controller");
 const auth_middleware_1 = require("./modules/auth/auth.middleware");
 const ressources_controller_1 = require("./modules/auth/ressources/ressources.controller");
+const marketplace_controller_1 = require("./modules/marketplace/marketplace.controller");
 function initWebServer() {
     // Creation du serveur http
     const app = (0, express_1.default)();
@@ -26,6 +27,7 @@ function initWebServer() {
     // On enregistre nos controllers
     (0, auth_controller_1.registerAuthRoutes)(app);
     (0, ressources_controller_1.inventoryRoutes)(app);
+    (0, marketplace_controller_1.marketplaceRoutes)(app);
     // On ecoute sur le port configuré avec le .env
     app.listen(process.env.NODE_PORT, () => {
         console.log(`Listening on http://localhost:${process.env.NODE_PORT}`);

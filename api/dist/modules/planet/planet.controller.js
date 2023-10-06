@@ -42,14 +42,14 @@ function planetsRoutes(app) {
     app.put('/planet/:id/upgrade', async (_req, res) => {
         const userId = new mongodb_1.ObjectId(_req.body.userId);
         const planeteId = new mongodb_1.ObjectId(_req.params.id);
-        console.log(userId);
         try {
             const result = await (0, planet_services_1.upgradePlanet)(planeteId, userId);
             if (result.success) {
                 res.status(200).json({ data: result });
             }
             else {
-                res.status(404).json(result);
+                res.status(400).json({ data: result });
+                console.log(result);
             }
         }
         catch (error) {

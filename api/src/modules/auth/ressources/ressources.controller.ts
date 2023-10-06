@@ -10,7 +10,7 @@ export function inventoryRoutes(app: Express) {
         const resources = await getAllResources(name);
         res.json(resources);
 
-});
+    })
 
 }
 

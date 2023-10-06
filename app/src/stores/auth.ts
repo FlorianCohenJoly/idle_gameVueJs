@@ -2,16 +2,14 @@ import {defineStore} from 'pinia'
 import {useToast} from "vue-toastification";
 import axios from "axios";
 
-import type {loginResponse, UserLogin, UserRegister} from '@/types/user.interfaces';
+import type {UserLogin, UserRegister} from '@/types/user.interfaces';
 
 const toast = useToast();
 
 export const useAuthStore = defineStore('user', {
-
     state: () => ({
         userData: null
     }),
-
 
     actions: {
         async registerUser(form: UserRegister) {
@@ -50,6 +48,7 @@ export const useAuthStore = defineStore('user', {
                             password: form.password
                         })
                         this.userData = response.data
+                        localStorage.setItem('user', JSON.stringify(response.data))
                         if (this.userData && this.userData?.success === false) {
                             toast.error(this.userData?.message, {
                                 timeout: 2000

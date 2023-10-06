@@ -5,7 +5,7 @@ import axios from "axios";
 
 const toast = useToast();
 
-export const useAuthStore = defineStore('items', {
+export const useMarketStore = defineStore('items', {
 
     state: () => ({
         userItems: [],

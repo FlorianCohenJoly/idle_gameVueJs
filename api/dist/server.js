@@ -1,9 +1,7 @@
 "use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.initWebServer = void 0;
 const express_1 = __importDefault(require("express"));
@@ -15,31 +13,29 @@ const ressources_controller_1 = require("./modules/ressources/ressources.control
 const marketplace_controller_1 = require("./modules/marketplace/marketplace.controller");
 const planet_controller_1 = require("./modules/planet/planet.controller");
 function initWebServer() {
-  // Creation du serveur http
-  const app = (0, express_1.default)();
-  // Utilise le plugin CORS
-  app.use(
-    (0, cors_1.default)({
-      credentials: true,
-    })
-  );
-  // lire les cookies
-  app.use((0, cookie_parser_1.default)());
-  // permet de décoder le contenu des requetes http (de type JSON)
-  app.use(express_1.default.json());
-  // Add isLogin middleware
-  app.use(auth_middleware_1.isLogin);
-  // On enregistre nos controllers
-  (0, auth_controller_1.registerAuthRoutes)(app);
-  (0, ressources_controller_1.inventoryRoutes)(app);
-  (0, auth_controller_1.registerAuthRoutes)(app);
-  (0, marketplace_controller_1.marketplaceRoutes)(app);
-  (0, planet_controller_1.planetsRoutes)(app);
-  // On ecoute sur le port configuré avec le .env
-  app.listen(process.env.NODE_PORT, () => {
-    console.log(`Listening on http://localhost:${process.env.NODE_PORT}`);
-  });
-  return app;
+    // Creation du serveur http
+    const app = (0, express_1.default)();
+    // Utilise le plugin CORS
+    app.use((0, cors_1.default)({
+        credentials: true,
+    }));
+    // lire les cookies
+    app.use((0, cookie_parser_1.default)());
+    // permet de décoder le contenu des requetes http (de type JSON)
+    app.use(express_1.default.json());
+    // Add isLogin middleware
+    app.use(auth_middleware_1.isLogin);
+    // On enregistre nos controllers
+    (0, auth_controller_1.registerAuthRoutes)(app);
+    (0, ressources_controller_1.inventoryRoutes)(app);
+    (0, auth_controller_1.registerAuthRoutes)(app);
+    (0, marketplace_controller_1.marketplaceRoutes)(app);
+    (0, planet_controller_1.planetsRoutes)(app);
+    // On ecoute sur le port configuré avec le .env
+    app.listen(process.env.NODE_PORT, () => {
+        console.log(`Listening on http://localhost:${process.env.NODE_PORT}`);
+    });
+    return app;
 }
 exports.initWebServer = initWebServer;
 //# sourceMappingURL=server.js.map

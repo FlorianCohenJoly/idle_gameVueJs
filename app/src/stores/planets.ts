@@ -55,5 +55,5 @@ export const usePlanetStore = defineStore('planets', {
       const response = await axios.get('http://localhost:3001/planets')
       this.allPlanets = response.data
     }
-  }}
+  }
 })

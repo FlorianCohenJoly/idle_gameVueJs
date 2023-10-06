@@ -34,11 +34,26 @@ export const usePlanetStore = defineStore('planets', {
       }
     },
 
-    async gainMoneyFromPlanet(userId: string){
-      if (userId !== undefined) {
-          await axios.put(`http://localhost:3001/planet/gain`, {
-          userId: userId
+    async upgradeOnePlanet(planetId: string, userId: string) {
+      if (!planetId || !userId) {
+        toast.error('Non existant', {
+          timeout: 2000
         })
+        return
+      }
+      const result = await axios.put(`http://localhost:3001/planet/${planetId}/upgrade`, {
+        userId: userId
+      })
+      if (result.data.data.success === false) {
+        if (result.data.data.error === 400) {
+          toast.error('Fond insuffisant', {
+            timeout: 2000
+          })
+        }
+      }
+
+      const response = await axios.get('http://localhost:3001/planets')
+      this.allPlanets = response.data
     }
   }}
 })

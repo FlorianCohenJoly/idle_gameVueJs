@@ -9,6 +9,17 @@
       <div v-for="planet in planetStore.allPlanets" :key="planet.id">
         <PlanetCard :planet="planet" />
       </div>
+      <button
+        @click="
+          onClickGoMarket(
+            authStore.userData.id || authStore.userData._id || authStore.userData.user_id
+          )
+        "
+        type="button"
+        class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900 max-w-fit self-center"
+      >
+        Aller au marketplace
+      </button>
     </div>
   </div>
 </template>
@@ -38,6 +49,10 @@ onBeforeMount(async () => {
 
 onMounted(async () => {
   await planetStore.getAllPlanets()
+
+  const onClickGoMarket = async () => {
+    await router.push({ path: `/marketplace/items` })
+  }
 
   setInterval(async () => {
     await authStore.gainMoneyFromPlanet(authStore.userData?.user_id || authStore.userData?._id)

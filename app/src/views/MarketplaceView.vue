@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import {reactive, ref} from "vue";
-import ProfilePage from '@/components/ProfilePage.vue'
-
+import MarketplacePage from "@/components/MarketplacePage.vue";
 </script>
 
 <template>
@@ -11,6 +9,6 @@ import ProfilePage from '@/components/ProfilePage.vue'
     </video>
 
     <div class="absolute inset-0 bg-black opacity-30"></div>
-    <ProfilePage />
+    <MarketplacePage />
   </main>
 </template>

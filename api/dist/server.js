@@ -9,7 +9,8 @@ const cors_1 = __importDefault(require("cors"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const auth_controller_1 = require("./modules/auth/auth.controller");
 const auth_middleware_1 = require("./modules/auth/auth.middleware");
-const ressources_controller_1 = require("./modules/auth/ressources/ressources.controller");
+const ressources_controller_1 = require("./modules/ressources/ressources.controller");
+const marketplace_controller_1 = require("./modules/marketplace/marketplace.controller");
 const planet_controller_1 = require("./modules/planet/planet.controller");
 function initWebServer() {
     // Creation du serveur http
@@ -27,6 +28,8 @@ function initWebServer() {
     // On enregistre nos controllers
     (0, auth_controller_1.registerAuthRoutes)(app);
     (0, ressources_controller_1.inventoryRoutes)(app);
+    (0, auth_controller_1.registerAuthRoutes)(app);
+    (0, marketplace_controller_1.marketplaceRoutes)(app);
     (0, planet_controller_1.planetsRoutes)(app);
     // On ecoute sur le port configuré avec le .env
     app.listen(process.env.NODE_PORT, () => {

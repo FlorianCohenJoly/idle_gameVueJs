@@ -7,6 +7,7 @@ declare global {
       export interface Request {
         user?: WithId<SimpleUser> | null;
         ressource?: WithId<Ressource> | null;
+        item?: WithId<Item> | null;
       }
     }
 }

@@ -1,4 +1,4 @@
-import { Ressource } from "@/types/ressources.types";
+import { Resource } from "@/types/ressources.types";
 import { db } from "../mongo";
 
-export const Ressources = db!.collection<Ressource>('ressources')
+export const Resources = db!.collection<Resource>('resources')

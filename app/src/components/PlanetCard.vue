@@ -12,7 +12,8 @@
       <p class="text-base font-semibold leading-5 text-white">
         Prix en pessinos : {{ planet?.price }} $
       </p>
-
+      <p class="text-base font-semibold leading-5 text-white">Niveau : {{ planet?.level }}</p>
+      <p class="text-base font-semibold leading-5 text-white">Gain : +{{ planet?.gain }} $</p>
       <button
         v-show="!planet.isBought"
         class="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"

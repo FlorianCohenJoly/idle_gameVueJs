@@ -32,6 +32,13 @@ export const usePlanetStore = defineStore('planets', {
           })
         }
       }
+    },
+
+    async gainMoneyFromPlanet(userId: string){
+      if (userId !== undefined) {
+          await axios.put(`http://localhost:3001/planet/gain`, {
+          userId: userId
+        })
     }
   }
 })

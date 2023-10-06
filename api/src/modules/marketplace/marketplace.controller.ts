@@ -9,9 +9,9 @@ export async function marketplaceRoutes(app: Express) {
     });
 
     app.get('/:userId/marketplace/items', async (req, res) => {
-        const userId = req.user;
-        console.log(userId);
-        const result = await getAllItems(userId);
+        const user = req.user;
+        console.log(user);
+        const result = await getAllItems(user);
         res.json(result);
     });
 }

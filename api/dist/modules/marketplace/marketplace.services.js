@@ -23,7 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllItems = exports.addItem = void 0;
+exports.buyAnItem = exports.getAllItems = exports.addItem = void 0;
 const Marketplace_1 = require("../../db/models/Marketplace");
 const Ressource_1 = require("../../db/models/Ressource");
 const console = __importStar(require("console"));
@@ -43,9 +43,9 @@ async function addItem(body) {
     return { success: true, message: body };
 }
 exports.addItem = addItem;
-async function getAllItems(userId) {
+async function getAllItems(user) {
     // @ts-ignore
-    const items = await Marketplace_1.Items.find({ id_user: { $ne: userId } }).toArray();
+    const items = await Marketplace_1.Items.find({ id_user: { $ne: user } }).toArray();
     if (!items) {
         return { success: false, message: "No items available." };
     }
@@ -53,4 +53,46 @@ async function getAllItems(userId) {
     return { success: true, message: "success", items };
 }
 exports.getAllItems = getAllItems;
+async function buyAnItem(itemId, userId) {
+    try {
+        const item = await Marketplace_1.Items.findOne({ _id: itemId });
+        if (!item) {
+            return { success: false, message: "Item not found." };
+        }
+        const userResource = await Ressource_1.Resources.findOne({
+            id_user: userId,
+            name: item.resource.name,
+        });
+        if (!userResource || userResource.quantity < item.quantity) {
+            return { success: false, message: "Insufficient resources." };
+        }
+        const updatedUserResourceQuantity = userResource.quantity - item.quantity;
+        if (userResource) {
+            await Ressource_1.Resources.updateOne({
+                id_user: userId,
+                name: item.resource.name,
+            }, { $set: { quantity: updatedUserResourceQuantity } });
+        }
+        else {
+            await Ressource_1.Resources.insertOne({
+                _id: userId,
+                id_user: userId,
+                name: item.resource.name,
+                quantity: item.quantity,
+            });
+        }
+        if (item.quantity === 0) {
+            await Marketplace_1.Items.deleteOne({ _id: itemId });
+        }
+        else {
+            await Marketplace_1.Items.updateOne({ _id: itemId }, { $set: { quantity: item.quantity - 1 } });
+        }
+        return { success: true, message: "Item purchased successfully" };
+    }
+    catch (error) {
+        console.error("Error buying item: ", error);
+        return { success: false, message: "An error occurred while buying the item." };
+    }
+}
+exports.buyAnItem = buyAnItem;
 //# sourceMappingURL=marketplace.services.js.map

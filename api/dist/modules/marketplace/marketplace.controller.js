@@ -8,9 +8,9 @@ async function marketplaceRoutes(app) {
         res.json(result);
     });
     app.get('/:userId/marketplace/items', async (req, res) => {
-        const userId = req.user;
-        console.log(userId);
-        const result = await (0, marketplace_services_1.getAllItems)(userId);
+        const user = req.user;
+        console.log(user);
+        const result = await (0, marketplace_services_1.getAllItems)(user);
         res.json(result);
     });
 }

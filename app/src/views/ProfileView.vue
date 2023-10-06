@@ -1,5 +1,7 @@
 <script setup lang="ts">
-  import ProfilePage from '@/components/ProfilePage.vue'
+import {reactive, ref} from "vue";
+import ProfilePage from '@/components/ProfilePage.vue'
+
 </script>
 
 <template>
@@ -12,4 +14,3 @@
     <ProfilePage />
   </main>
 </template>
-

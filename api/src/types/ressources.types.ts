@@ -1,5 +1,8 @@
-export interface Ressource {
-    name: string
-    id_user: string;
+import {ObjectId} from "mongodb";
+
+export interface Resource {
+    _id: ObjectId;
+    name: string;
+    id_user: ObjectId;
     quantity: number;
 }

@@ -1,7 +1,7 @@
 import {AuthRegisterBody, SimpleUser} from "@/types/auth.types";
 import {Users} from "@/db/models/User";
 import crypto from 'crypto'
-import {WithId} from "mongodb";
+import {ObjectId, WithId} from "mongodb";
 
 export async function register(body: AuthRegisterBody) {
     const alreadyExist = await Users.findOne({username: body.username})
@@ -37,7 +37,15 @@ export async function login(body: AuthRegisterBody) {
     const token = crypto.randomBytes(32).toString('hex')
     await Users.updateOne({_id: user._id}, {$set: {token}})
 
-    return {success: true, token, user_id: user._id}
+    return {success: true, token, username: user.username, pessinos: user.pessinos, user_id: user._id}
+}
+
+export async function getMeById(user_id: ObjectId) {
+    const user = await Users.findOne({_id: user_id})
+    if (!user) {
+        return {success: false, message: 'Error user not found'}
+    }
+    return {success: true, message: 'Trouver', user: user}
 }
 
 export function findByToken(token: string) {

@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.registerAuthRoutes = void 0;
 const auth_services_1 = require("./auth.services");
 const auth_middleware_1 = require("./auth.middleware");
+const mongodb_1 = require("mongodb");
 function registerAuthRoutes(app) {
     // on enregistre une route /auth/register
     // TypeParams, TypeQuery, TypeBody
@@ -23,6 +24,21 @@ function registerAuthRoutes(app) {
             res.cookie('token', result.token, { expires: new Date(+new Date() + 1000000000), sameSite: 'none' });
         }
         res.json(result);
+    });
+    app.get('/me/:userId', async (req, res) => {
+        const userId = new mongodb_1.ObjectId(req.params.userId);
+        try {
+            const result = await (0, auth_services_1.getMeById)(userId);
+            if (result.success) {
+                res.status(200).json({ data: result });
+            }
+            else {
+                res.status(404).json({ message: result.message });
+            }
+        }
+        catch (error) {
+            res.status(500).json({ message: "Internal Server Error", error });
+        }
     });
     app.get('/auth/me', auth_middleware_1.requireLogin, (req, res) => {
         res.json(req.user);

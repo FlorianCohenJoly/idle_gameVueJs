@@ -1,11 +1,17 @@
 import { Express } from 'express';
-import { addItem } from '@/modules/marketplace/marketplace.services';
-import {validateAddItem} from "@/modules/marketplace/marketplace.middleware";
+import {addItem, getAllItems} from '@/modules/marketplace/marketplace.services';
+import {requireLogin} from "@/modules/auth/auth.middleware";
 
 export async function marketplaceRoutes(app: Express) {
-    // Utilisez le middleware de validation avant d'appeler la fonction addItem
-    app.post('/marketplace/item/add', validateAddItem, async (req, res) => {
+
+    app.post('/marketplace/item/add', requireLogin, async (req, res) => {
         const result = await addItem(req.body);
+        res.json(result);
+    });
+
+    app.get('/marketplace/items', requireLogin, async (req, res) => {
+        const userId = req.body.userId;
+        const result = await getAllItems(userId);
         res.json(result);
     });
 }

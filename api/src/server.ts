@@ -3,7 +3,7 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import { registerAuthRoutes } from './modules/auth/auth.controller'
 import { isLogin } from './modules/auth/auth.middleware'
-import { inventoryRoutes } from './modules/auth/ressources/ressources.controller'
+import { inventoryRoutes } from '@/modules/ressources/ressources.controller'
 import {marketplaceRoutes} from "@/modules/marketplace/marketplace.controller";
 
 export function initWebServer() {

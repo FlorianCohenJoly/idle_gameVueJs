@@ -40,5 +40,5 @@ export const usePlanetStore = defineStore('planets', {
           userId: userId
         })
     }
-  }
+  }}
 })

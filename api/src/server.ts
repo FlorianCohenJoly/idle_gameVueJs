@@ -25,8 +25,8 @@ export function initWebServer() {
     app.use(isLogin)
 
     // On enregistre nos controllers
-    registerAuthRoutes(app)
-    inventoryRoutes(app)
+    registerAuthRoutes(app);
+    inventoryRoutes(app);
     registerAuthRoutes(app);
     marketplaceRoutes(app);
     

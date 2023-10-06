@@ -27,6 +27,7 @@ export function initWebServer() {
     // On enregistre nos controllers
     registerAuthRoutes(app)
     inventoryRoutes(app)
+    registerAuthRoutes(app);
     marketplaceRoutes(app);
     
     // On ecoute sur le port configuré avec le .env

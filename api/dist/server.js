@@ -27,6 +27,7 @@ function initWebServer() {
     // On enregistre nos controllers
     (0, auth_controller_1.registerAuthRoutes)(app);
     (0, ressources_controller_1.inventoryRoutes)(app);
+    (0, auth_controller_1.registerAuthRoutes)(app);
     (0, marketplace_controller_1.marketplaceRoutes)(app);
     // On ecoute sur le port configuré avec le .env
     app.listen(process.env.NODE_PORT, () => {

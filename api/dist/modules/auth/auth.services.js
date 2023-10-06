@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findByToken = exports.login = exports.register = void 0;
+exports.findByToken = exports.getMeById = exports.login = exports.register = void 0;
 const User_1 = require("../../db/models/User");
 const crypto_1 = __importDefault(require("crypto"));
 async function register(body) {
@@ -34,9 +34,17 @@ async function login(body) {
     }
     const token = crypto_1.default.randomBytes(32).toString('hex');
     await User_1.Users.updateOne({ _id: user._id }, { $set: { token } });
-    return { success: true, token, user_id: user._id };
+    return { success: true, token, username: user.username, pessinos: user.pessinos, user_id: user._id };
 }
 exports.login = login;
+async function getMeById(user_id) {
+    const user = await User_1.Users.findOne({ _id: user_id });
+    if (!user) {
+        return { success: false, message: 'Error user not found' };
+    }
+    return { success: true, message: 'Trouver', user: user };
+}
+exports.getMeById = getMeById;
 function findByToken(token) {
     return User_1.Users.findOne({ token }, { projection: { password: 0, token: 0 } });
 }

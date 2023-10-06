@@ -9,17 +9,27 @@
     />
     <div class="text-center">
       <h2 class="text-lg font-semibold leading-6 text-blue-300">{{ planet?.name }}</h2>
-      <p class="text-base font-semibold leading-5 text-white">
+      <p v-show="!planet.isBought" class="text-base font-semibold leading-5 text-white">
         Prix en pessinos : {{ planet?.price }} $
       </p>
       <p class="text-base font-semibold leading-5 text-white">Niveau : {{ planet?.level }}</p>
       <p class="text-base font-semibold leading-5 text-white">Gain : +{{ planet?.gain }} $</p>
+      <p class="text-base font-semibold leading-5 text-white">
+        Coût : {{ planet?.level_ressource }} $
+      </p>
       <button
         v-show="!planet.isBought"
         class="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
         @click="onClickPlanet"
       >
         Acheter
+      </button>
+      <button
+        v-show="planet.isBought"
+        class="bg-blue-500 text-white px-4 py-2 rounded-md mt-4"
+        @click="onClickUpgrade(planet?._id || planet?.id)"
+      >
+        Ameliorer
       </button>
     </div>
 
@@ -53,7 +63,7 @@ import { VueFinalModal } from 'vue-final-modal'
 import { ref } from 'vue'
 import { usePlanetStore } from '@/stores/planets'
 
-const planetSStore = usePlanetStore()
+const planetStore = usePlanetStore()
 
 let showModal = ref(false)
 defineProps({
@@ -61,25 +71,28 @@ defineProps({
   planet: Object
 })
 let user = JSON.parse(localStorage.getItem('user') || '')
-let userId = user.user_id
+let userId = user.user_id || user._id
 
 const confirmAction = (planetId: string, userId: string) => {
-  console.log(userId)
   if (planetId) {
-    planetSStore.buyOnePlanet(planetId, userId)
-    showModal.value = false
+    planetStore.buyOnePlanet(planetId, userId)
   }
 }
 
 const cancelAction = (e: Event) => {
   e.preventDefault()
-  console.log('non', showModal)
   showModal.value = false
-  console.log('non', showModal)
 }
 
-const onClickPlanet = (e: Event) => {
+const onClickPlanet = () => {
   showModal.value = true
+}
+
+const onClickUpgrade = (planetId: string) => {
+  console.log(planetId, userId)
+  if (planetId && userId) {
+    planetStore.upgradeOnePlanet(planetId, userId)
+  }
 }
 </script>
 

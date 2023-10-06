@@ -1,1 +1,1 @@
-{"version":3,"file":"Ressource.js","sourceRoot":"","sources":["../../../src/db/models/Ressource.ts"],"names":[],"mappings":";;;AACA,oCAA8B;AAEjB,QAAA,UAAU,GAAG,UAAG,CAAC,UAAU,CAAY,YAAY,CAAC,CAAA"}
+{"version":3,"file":"Ressource.js","sourceRoot":"","sources":["../../../src/db/models/Ressource.ts"],"names":[],"mappings":";;;AACA,oCAA8B;AAEjB,QAAA,SAAS,GAAG,UAAG,CAAC,UAAU,CAAW,WAAW,CAAC,CAAA"}

@@ -27,13 +27,16 @@ exports.getAllItems = exports.addItem = void 0;
 const Marketplace_1 = require("../../db/models/Marketplace");
 const Ressource_1 = require("../../db/models/Ressource");
 const console = __importStar(require("console"));
+const mongodb_1 = require("mongodb");
 async function addItem(body) {
-    const updatedRessourceQuantity = body.ressource.quantity - body.quantity;
-    const updatedItemRessource = Object.assign(Object.assign({}, body.ressource), { quantity: updatedRessourceQuantity });
-    await Ressource_1.Ressources.updateOne({ userId: body.ressource.id_user, name: body.ressource.name }, { $set: { quantity: updatedRessourceQuantity } });
+    console.log(body);
+    const updatedResourceQuantity = body.resource.quantity - body.quantity;
+    const updatedItemResource = Object.assign(Object.assign({}, body.resource), { quantity: updatedResourceQuantity });
+    const result = await Ressource_1.Resources.updateOne({ id_user: new mongodb_1.ObjectId(body.resource.id_user), _id: new mongodb_1.ObjectId(body.resource._id) }, { $set: { quantity: updatedResourceQuantity } });
+    console.log(result);
     await Marketplace_1.Items.insertOne({
         id_user: body.id_user,
-        ressource: updatedItemRessource,
+        resource: updatedItemResource,
         quantity: body.quantity,
         price: body.price
     });

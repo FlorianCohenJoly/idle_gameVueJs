@@ -1,21 +1,25 @@
 import { Item } from "@/types/marketplace.types";
 import {Items} from "@/db/models/Marketplace";
-import { Ressources } from "@/db/models/Ressource";
+import { Resources } from "@/db/models/Ressource";
 import * as console from "console";
+import {ObjectId} from "mongodb";
 
 export async function addItem(body : Item) {
 
-    const updatedRessourceQuantity = body.ressource.quantity - body.quantity;
-    const updatedItemRessource = {...body.ressource, quantity: updatedRessourceQuantity};
+    console.log(body);
+    const updatedResourceQuantity = body.resource.quantity - body.quantity;
+    const updatedItemResource = {...body.resource, quantity: updatedResourceQuantity};
 
-    await Ressources.updateOne(
-        { userId: body.ressource.id_user, name: body.ressource.name },
-        { $set: { quantity: updatedRessourceQuantity } }
+    const  result = await Resources.updateOne(
+        { id_user: new ObjectId(body.resource.id_user), _id: new ObjectId(body.resource._id) },
+        { $set: { quantity: updatedResourceQuantity } }
     );
+
+    console.log(result);
 
     await Items.insertOne({
             id_user : body.id_user,
-            ressource: updatedItemRessource,
+            resource: updatedItemResource,
             quantity: body.quantity,
             price: body.price
     });

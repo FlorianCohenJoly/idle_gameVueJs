@@ -1,7 +1,7 @@
-import {Ressource} from "@/types/ressources.types";
+import {Resource} from "@/types/ressources.types";
 export interface Item {
     id_user : string;
-    ressource: Ressource;
+    resource: Resource;
     quantity: number;
     price: number;
 }

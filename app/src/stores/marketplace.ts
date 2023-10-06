@@ -5,7 +5,7 @@ import axios from "axios";
 
 const toast = useToast();
 
-export const useAuthStore = defineStore('items', {
+export const useMarketplaceStore = defineStore('items', {
 
     state: () => ({
         userItems: [],
@@ -13,5 +13,10 @@ export const useAuthStore = defineStore('items', {
     }),
 
 
-    actions: {},
+    actions: {
+        async getAllItems() {
+            const response = await axios.get('http://localhost:3001/marketplace/items')
+            this.allItems = response.data
+        },
+    },
 })

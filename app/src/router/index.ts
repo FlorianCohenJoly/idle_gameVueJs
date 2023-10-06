@@ -4,6 +4,7 @@ import HomeView from '../views/HomeView.vue'
 import ConnexionView from '@/views/LoginView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import RegisterView from "@/views/RegisterView.vue"
+import MarketplaceView from "@/views/MarketplaceView.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +28,11 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: RegisterView
+    },
+    {
+      path: '/marketplace/items',
+      name: 'marketplace',
+      component: MarketplaceView
     }
   ]
 })

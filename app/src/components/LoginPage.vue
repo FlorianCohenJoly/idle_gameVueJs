@@ -68,7 +68,6 @@ import {useToast} from "vue-toastification";
 import {useRouter, useRoute} from 'vue-router'
 
 const router = useRouter()
-const route = useRoute()
 const authStore = useAuthStore()
 const toast = useToast();
 
@@ -86,7 +85,7 @@ const login = async () => {
         if (authStore.userData.success === false) {
           return
         } else {
-          await router.push({name: 'home'})
+          await router.push({name: 'game'})
         }
       } else {
         toast.error("Passwords is required", {

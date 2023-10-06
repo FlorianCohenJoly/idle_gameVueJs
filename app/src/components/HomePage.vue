@@ -2,7 +2,6 @@
   <div class="absolute inset-0 flex items-center justify-center flex-col">
     <h1 class="text-5xl text-blue-100 font-bold">Welcome to Idle Space Tycoon</h1>
     <button
-        type="button"
         class="rounded bg-primary m-5 px-6 pb-2 pt-2.5 text-xs
         font-bold uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca]
         transition duration-150 ease-in-out hover:bg-primary-600
@@ -12,15 +11,31 @@
         dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)]
         dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]
         dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]
-        dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">
-
-      <RouterLink :to="{ name:'login'}">Start the game</RouterLink>
-
+        dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]"
+        type="button" v-on:click="onClickRedirect">
+      Start the game
     </button>
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import {useRouter} from "vue-router";
+
+const router = useRouter()
+
+const onClickRedirect = async () => {
+  if (localStorage.getItem('user')) {
+    try {
+      JSON.parse(localStorage.getItem('user') || '');
+      await router.push({name: 'game'})
+    } catch (e) {
+      localStorage.removeItem('cats');
+    }
+  } else {
+    await router.push({name: 'login'})
+  }
+
+}
 
 </script>
 

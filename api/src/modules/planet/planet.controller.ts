@@ -42,13 +42,14 @@ export function planetsRoutes(app: Express) {
     app.put('/planet/:id/upgrade', async (_req, res) => {
         const userId: ObjectId = new ObjectId(_req.body.userId)
         const planeteId: ObjectId = new ObjectId(_req.params.id)
-        console.log(userId)
         try {
             const result = await upgradePlanet(planeteId, userId)
+
             if (result.success) {
                 res.status(200).json({data: result});
             } else {
-                res.status(404).json(result);
+                res.status(400).json({data: result});
+                console.log(result)
             }
         } catch (error) {
             res.status(500).json({message: "Internal Server Error", error});

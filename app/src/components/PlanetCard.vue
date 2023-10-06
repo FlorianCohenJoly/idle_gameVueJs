@@ -76,7 +76,9 @@ let userId = user.user_id || user._id
 const confirmAction = (planetId: string, userId: string) => {
   if (planetId) {
     planetStore.buyOnePlanet(planetId, userId)
+    showModal.value = false
   }
+  showModal.value = false
 }
 
 const cancelAction = (e: Event) => {

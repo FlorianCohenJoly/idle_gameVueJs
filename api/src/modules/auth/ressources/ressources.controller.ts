@@ -5,15 +5,12 @@ import { requireLogin } from '../auth.middleware';
 
 export function inventoryRoutes(app: Express) {
     
-    app.get('/inventory', requireLogin, async (_, res) => {
-    try {
-        const resources = await getAllResources();
-
+    app.get('/inventory', requireLogin, async (req, res) => {
+        const name = req.body.name;
+        const resources = await getAllResources(name);
         res.json(resources);
-    } catch (error) {
-        console.error('Erreur lors de la récupération des ressources :', error);
-        res.status(500).json({ error: 'Erreur serveur' });
-    }
+
 });
 
 }
+

@@ -5,15 +5,10 @@ exports.inventoryRoutes = void 0;
 const ressources_services_1 = require("./ressources.services");
 const auth_middleware_1 = require("../auth.middleware");
 function inventoryRoutes(app) {
-    app.get('/inventory', auth_middleware_1.requireLogin, async (_, res) => {
-        try {
-            const resources = await (0, ressources_services_1.getAllResources)();
-            res.json(resources);
-        }
-        catch (error) {
-            console.error('Erreur lors de la récupération des ressources :', error);
-            res.status(500).json({ error: 'Erreur serveur' });
-        }
+    app.get('/inventory', auth_middleware_1.requireLogin, async (req, res) => {
+        const name = req.body.name;
+        const resources = await (0, ressources_services_1.getAllResources)(name);
+        res.json(resources);
     });
 }
 exports.inventoryRoutes = inventoryRoutes;

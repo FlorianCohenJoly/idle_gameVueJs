@@ -1,9 +1,5 @@
 import {defineStore} from 'pinia'
-import {useToast} from "vue-toastification";
-
 import axios from "axios";
-
-const toast = useToast();
 
 export const useMarketplaceStore = defineStore('items', {
 
@@ -12,11 +8,11 @@ export const useMarketplaceStore = defineStore('items', {
         allItems: []
     }),
 
-
     actions: {
-        async getAllItems() {
-            const response = await axios.get('http://localhost:3001/marketplace/items')
-            this.allItems = response.data
+        async getAllItems(userId: string) {
+            const response = await axios.get(`http://localhost:3001/${userId}/marketplace/items`);
+            console.log(response.data.items);
+            this.allItems = response.data.items;
         },
     },
 })

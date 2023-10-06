@@ -44,6 +44,7 @@ async function addItem(body) {
 }
 exports.addItem = addItem;
 async function getAllItems(userId) {
+    // @ts-ignore
     const items = await Marketplace_1.Items.find({ id_user: { $ne: userId } }).toArray();
     if (!items) {
         return { success: false, message: "No items available." };

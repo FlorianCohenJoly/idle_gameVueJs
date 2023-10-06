@@ -2,7 +2,8 @@ import { Item } from "@/types/marketplace.types";
 import {Items} from "@/db/models/Marketplace";
 import { Resources } from "@/db/models/Ressource";
 import * as console from "console";
-import {ObjectId} from "mongodb";
+import {EnhancedOmit, InferIdType, ObjectId} from "mongodb";
+import {SimpleUser} from "@/types/auth.types";
 
 export async function addItem(body : Item) {
 
@@ -27,7 +28,8 @@ export async function addItem(body : Item) {
     return { success: true, message : body }
 }
 
-export async function getAllItems(userId : string) {
+export async function getAllItems(userId: (EnhancedOmit<SimpleUser, "_id"> & { _id: InferIdType<SimpleUser> }) | null | undefined) {
+    // @ts-ignore
     const items = await Items.find({ id_user: { $ne: userId }  }).toArray();
     if (!items) {
         return { success: false, message : "No items available."}

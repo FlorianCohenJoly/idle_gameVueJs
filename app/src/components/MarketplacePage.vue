@@ -2,7 +2,6 @@
   <div class="absolute inset-0 flex  flex-col z-2">
     <h2 class="text-5xl text-blue-100  self-center font-bold">Hello my friend,
       {{ authStore.userData.username }} !</h2>
-
     <div class="flex flex-wrap justify-start">
       <div v-for="item in marketplaceStore.allItems" :key="item.id">
         <MarketplaceCard :item="item"/>
@@ -32,7 +31,8 @@ onBeforeMount(async () => {
 })
 
 onMounted(async () => {
-  await marketplaceStore.getAllItems()
+  const userId = router.currentRoute.value.params.userId;
+  await marketplaceStore.getAllItems(userId);
 })
 
 </script>

@@ -12,6 +12,7 @@
         <div>
           <p
             class="no-underline inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal hover:bg-blue-300 mt-4 sm:mt-0"
+            @click="goToProfil"
           >
             Vos Pessinos : {{ money }} $
           </p>
@@ -39,6 +40,10 @@ defineProps({
 const disconnect = async () => {
   localStorage.clear()
   await router.push({ path: '/login' })
+}
+
+const goToProfil = async () => {
+  await router.push({ path: 'profile' })
 }
 </script>
 

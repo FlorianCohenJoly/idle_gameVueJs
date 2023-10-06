@@ -3,22 +3,20 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 
 export const useResourceStore = defineStore('resources', {
-    state: () => ({
-        userResources: [],
-        userPlanet: []
-    }),
+  state: () => ({
+    userResources: []
+  }),
 
-    actions: {
-
-        async getUserResources() {
-            const response = await axios.get('http://localhost:3001/resources')
-            this.userResources = response.data
-            console.log(response.data)
-        },
-
-        async getUserPlanets() {
-            const response = await axios.get('http://localhost:3001/planets')
-            this.userPlanet = response.data
-        }
+  actions: {
+    async getUserResources(userId: string) {
+      const response = await axios.get(`http://localhost:3001/${userId}/resources`, {})
+      this.userResources = response.data.ressources
+      console.log('r', response.data.ressources)
     }
+
+    // async getUserPlanets() {
+    //   const response = await axios.get('http://localhost:3001/planets')
+    //   this.userPlanet = response.data
+    // }
+  }
 })

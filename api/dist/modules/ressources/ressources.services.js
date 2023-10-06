@@ -23,12 +23,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllResourcesForAUser = void 0;
+exports.getAllRessources = exports.getAllResourcesForAUser = void 0;
 const Ressource_1 = require("../../db/models/Ressource");
 const console = __importStar(require("console"));
-async function getAllResourcesForAUser(userId) {
-    console.log(userId);
-    const resources = await Ressource_1.Resources.find({ id_user: userId }).toArray();
+const User_1 = require("../../db/models/User");
+async function getAllResourcesForAUser(user) {
+    // @ts-ignore
+    const resources = await Ressource_1.Resources.find({ id_user: user }).toArray();
     if (resources.length === 0) {
         return { success: false, message: "No resources available." };
     }
@@ -36,4 +37,17 @@ async function getAllResourcesForAUser(userId) {
     return { success: true, message: "success", resources };
 }
 exports.getAllResourcesForAUser = getAllResourcesForAUser;
+async function getAllRessources(userId) {
+    const user = await User_1.Users.findOne({ _id: userId });
+    if (!user) {
+        return { success: false, message: "Utilisateur n'existe pas" };
+    }
+    const ressources = await Ressource_1.Resources.find({ id_user: userId }).toArray();
+    if (ressources.length === 0) {
+        console.log(ressources);
+        return { success: false, message: "No resources available." };
+    }
+    return { success: true, message: "succes", ressources: ressources };
+}
+exports.getAllRessources = getAllRessources;
 //# sourceMappingURL=ressources.services.js.map

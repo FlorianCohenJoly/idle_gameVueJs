@@ -1,13 +1,14 @@
-import { Express } from 'express'
-import { getAllResourcesForAUser } from './ressources.services'
-import { requireLogin } from '../auth/auth.middleware';
+import {Express} from 'express'
+import {getAllRessources} from './ressources.services'
+import {ObjectId} from "mongodb";
 
 export function inventoryRoutes(app: Express) {
 
-    app.get('/resources', requireLogin, async (req, res) => {
-        const userId = req.user!._id;
-        const resources = await getAllResourcesForAUser(userId);
+    app.get('/:userId/resources', async (_req, res) => {
+        const userId = new ObjectId(_req.params.userId)
+        // const resources = await getAllResources ForAUser(user);
+        const resources = await getAllRessources(userId)
         res.json(resources);
-
     });
+
 }
